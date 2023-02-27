@@ -6,20 +6,9 @@ import { mediumMove, pettyMove } from "./medium";
 
 const boards = [
   [
-    Field.EMPTY, // _ _ _
-    Field.EMPTY, // _ _ _
-    Field.EMPTY, // _ _ _
     Field.EMPTY,
     Field.EMPTY,
     Field.EMPTY,
-    Field.EMPTY,
-    Field.EMPTY,
-    Field.EMPTY,
-  ],
-  [
-    Field.PLAYER1, // O _ O
-    Field.EMPTY, // _ _ _
-    Field.PLAYER1, // _ _ _
     Field.EMPTY,
     Field.EMPTY,
     Field.EMPTY,
@@ -28,9 +17,20 @@ const boards = [
     Field.EMPTY,
   ],
   [
-    Field.PLAYER1, // O _ _
-    Field.EMPTY, // O _ _
-    Field.EMPTY, // _ _ _
+    Field.PLAYER1,
+    Field.EMPTY,
+    Field.PLAYER1,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+  ],
+  [
+    Field.PLAYER1,
+    Field.EMPTY,
+    Field.EMPTY,
     Field.PLAYER1,
     Field.EMPTY,
     Field.EMPTY,
@@ -39,20 +39,9 @@ const boards = [
     Field.EMPTY,
   ],
   [
-    Field.EMPTY, // _ _ _
-    Field.EMPTY, // _ _ _
-    Field.EMPTY, // _ _ _
     Field.EMPTY,
     Field.EMPTY,
     Field.EMPTY,
-    Field.EMPTY,
-    Field.EMPTY,
-    Field.EMPTY,
-  ],
-  [
-    Field.PLAYER2, // X _ X
-    Field.EMPTY, // _ _ _
-    Field.PLAYER2, // _ _ _
     Field.EMPTY,
     Field.EMPTY,
     Field.EMPTY,
@@ -61,10 +50,43 @@ const boards = [
     Field.EMPTY,
   ],
   [
-    Field.PLAYER2, // X _ _
-    Field.EMPTY, // X _ _
-    Field.EMPTY, // _ _ _
     Field.PLAYER2,
+    Field.EMPTY,
+    Field.PLAYER2,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+  ],
+  [
+    Field.PLAYER2,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.PLAYER2,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.EMPTY,
+  ],
+  [
+    Field.PLAYER2,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.PLAYER2,
+    Field.EMPTY,
+    Field.EMPTY,
+    Field.PLAYER1,
+    Field.EMPTY,
+    Field.EMPTY,
+  ],
+  [
+    Field.PLAYER2,
+    Field.PLAYER1,
+    Field.PLAYER2,
+    Field.EMPTY,
     Field.EMPTY,
     Field.EMPTY,
     Field.EMPTY,
@@ -81,6 +103,8 @@ describe("get winning move", () => {
     expect(winningMove(boards[3], Field.PLAYER2)).toBe(-1);
     expect(winningMove(boards[4], Field.PLAYER2)).toBe(1);
     expect(winningMove(boards[5], Field.PLAYER2)).toBe(6);
+    expect(winningMove(boards[6], Field.PLAYER2)).toBe(-1);
+    expect(winningMove(boards[7], Field.PLAYER2)).toBe(-1);
   });
 });
 
