@@ -1,4 +1,4 @@
-import { Field, Game, invertPlayer, isFull, Mode, Outcome, Player } from './game';
+import { Field, Game, invertPlayer, isFull, Mode, Outcome, Player, won } from './game';
 import { moveWithMode } from './bots/bot';
 
 describe("invert player", () => {
@@ -133,12 +133,25 @@ describe("Outcome, is draw", () => {
 describe("is full", () => {
   it("is full", () => {
     let board: Field[] = [1,1,2,2];
-    const outcome = new Outcome(board);
     expect(isFull(board)).toBe(true);
   });
   it("is not full", () => {
     let board: Field[] = [1,1,0,2];
-    const outcome = new Outcome(board);
     expect(isFull(board)).toBe(false);
+  });
+});
+
+describe("won", () => {
+  it("player 1 won", () => {
+    let board: Field[] = [1,1,1];
+    expect(won(board)).toBe(1);
+  });
+  it("player 1 won", () => {
+    let board: Field[] = [2,2,2];
+    expect(won(board)).toBe(2);
+  });
+  it("no winner", () => {
+    let board: Field[] = [0,0,0];
+    expect(won(board)).toBe(0);
   });
 });
