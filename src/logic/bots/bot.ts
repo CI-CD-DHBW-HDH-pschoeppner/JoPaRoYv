@@ -46,6 +46,16 @@ export function winningMove(board: Field[], player: Field): number {
     if (count == 2) return offset + row.indexOf(Field.EMPTY);
   }
 
+  // vertically
+  for (let i = 0; i < 3; i++) {
+    const row = [board[i], board[i + 3], board[i + 6]];
+
+    if (row.filter((r) => r === Field.EMPTY).length !== 1) continue;
+
+    const count = row.filter((r) => r === player).length;
+    if (count == 2) return row.indexOf(Field.EMPTY) * 3 + i;
+  }
+
   return -1;
 }
 
