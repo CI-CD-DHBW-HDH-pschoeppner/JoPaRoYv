@@ -7,6 +7,10 @@ import { randomMove, winningMove } from '../bots/bot';
 // - chooses the middle (4) field, if it can
 // - chooses a random move otherwise
 export function mediumMove(board: Field[], own: Field): number {
+    const isFull = (currentValue: Field) => currentValue != Field.EMPTY
+    if(board.every(isFull)){
+        return -1
+    }
   if (winningMove(board, own) != -1) {
     return winningMove(board, own);
   }
