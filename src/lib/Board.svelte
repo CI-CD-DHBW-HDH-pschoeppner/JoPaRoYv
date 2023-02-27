@@ -30,7 +30,7 @@
     if (!getCurrentPlayer().isHuman()) {
       setField(getCurrentPlayer().move(board), getCurrentPlayer().field);
 
-      winningMove(board, getCurrentPlayer().field);
+      // winningMove(board, getCurrentPlayer().field);
 
       currentPlayer = invertPlayer(currentPlayer);
     }
