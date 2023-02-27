@@ -25,3 +25,25 @@ describe("medium move", () => {
         expect(result).toBe(4)
     })
   });
+
+  describe("petty move", () => {
+    var full_field: Field[] = [Field.PLAYER1, Field.PLAYER1, Field.PLAYER1, Field.PLAYER1, Field.PLAYER1, Field.PLAYER1, Field.PLAYER1, Field.PLAYER1, Field.PLAYER1]
+    var winning_on_2:Field[] = [Field.PLAYER1, Field.PLAYER1, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY]
+    it("return -1 if field is full", () => {
+        const result : Number = mediumMove(full_field, Field.PLAYER1)
+        expect(result).toBe(-1);
+      });
+      
+      it("return petty move,", ()=> {
+          const result:Number = mediumMove(winning_on_2, Field.PLAYER2)
+          expect(result).toBe(2)
+      })
+  })
+
+  describe("try petty move", ()=> {
+    var winning_on_2:Field[] = [Field.PLAYER1, Field.PLAYER1, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY, Field.EMPTY]
+    it("return petty move,", ()=> {
+        const result:Number = mediumMove(winning_on_2, Field.PLAYER2)
+        expect(result).toBe(2)
+    })
+  })
