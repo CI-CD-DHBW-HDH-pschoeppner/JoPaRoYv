@@ -1,4 +1,4 @@
-import { Field, hasWon, invertPlayer, isPlayer, Mode, won } from "../game";
+import { Field, hasWon, isPlayer, Mode } from "../game";
 import { easyMove } from "./easy";
 import { hardMove } from "./hard";
 import { mediumMove, pettyMove } from "./medium";
@@ -34,7 +34,7 @@ export function winningMove(board: Field[], player: Field): number {
   for (let i = 0; i < board.length; i++) {
     if (board[i] !== Field.EMPTY) continue;
 
-    let tmp = [...board];
+    const tmp = [...board];
     tmp[i] = player;
 
     if (hasWon(tmp, player)) return i;
