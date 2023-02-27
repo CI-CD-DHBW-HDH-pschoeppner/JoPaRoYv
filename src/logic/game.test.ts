@@ -14,3 +14,4 @@ describe("invert player", () => {
     expect(result).toBe(Field.EMPTY);
   });
 });
+
