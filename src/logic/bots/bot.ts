@@ -31,8 +31,6 @@ export function moveWithMode(mode: Mode): BotMove | undefined {
 export function winningMove(board: Field[], player: Field): number {
   if (!isPlayer(player)) throw new Error(`Player ${player} is not valid`);
 
-  player = invertPlayer(player);
-
   // horicontally
   for (let i = 0; i < 3; i++) {
     // get rows horicontally
