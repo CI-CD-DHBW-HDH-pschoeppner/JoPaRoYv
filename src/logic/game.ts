@@ -121,11 +121,27 @@ export function isFull(board: Field[]): boolean {
 export function won(board: Field[]): Field {
   for (const player of [Field.PLAYER1, Field.PLAYER2]) {
     if (
-      false // TODO: implement
+      hasWon(board, player)
     )
       return player;
   }
   return Field.EMPTY;
+}
+
+export function hasWon(board: Field[], player: Field): boolean {
+  if (
+    board[0] == player && board[1] == player && board[2] == player ||
+    board[3] == player && board[4] == player && board[5] == player ||
+    board[6] == player && board[7] == player && board[8] == player ||
+    board[0] == player && board[3] == player && board[6] == player ||
+    board[1] == player && board[4] == player && board[7] == player ||
+    board[2] == player && board[5] == player && board[8] == player ||
+    board[0] == player && board[4] == player && board[8] == player ||
+    board[6] == player && board[4] == player && board[2] == player
+  ) {
+    return true;
+  }
+  return false;
 }
 
 // newBoard returns a new, empty Array of Fields with length 9
