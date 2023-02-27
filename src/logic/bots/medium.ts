@@ -20,8 +20,9 @@ export function mediumMove(board: Field[], own: Field): number {
   if (board[4] == Field.EMPTY) {
     return 4;
   }
+  let move:number
   do {
-    var move = randomMove(board.length);
+    move = randomMove(board.length);
   } while (board[move] != Field.EMPTY);
   return move;
 }
@@ -34,12 +35,13 @@ export function pettyMove(board: Field[], own: Field): number {
   if (board.every(isFull)) {
     return -1;
   }
-  var enemy = invertPlayer(own);
+  const enemy = invertPlayer(own);
   if (winningMove(board, enemy) != -1) {
     return winningMove(board, enemy);
   } else {
+    let move: number
     do {
-      var move = randomMove(board.length);
+      move = randomMove(board.length);
     } while (board[move] != Field.EMPTY);
     return move;
   }
@@ -51,7 +53,7 @@ export function tryPettyMove(board: Field[], own: Field): number {
   if (board.every(isFull)) {
     return -1;
   }
-  var enemy = invertPlayer(own);
+  const enemy = invertPlayer(own);
 
   if (winningMove(board, enemy) != -1) {
     return winningMove(board, enemy);
