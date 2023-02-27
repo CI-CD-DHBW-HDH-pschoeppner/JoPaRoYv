@@ -86,10 +86,10 @@ describe("get winning move", () => {
 
 describe("get random", () => {
   it("should be within constraints", () => {
-    for (let i = 0; i <= 100; i++) {
-      let rand = randomMove(100);
+    for (let i = 0; i <= 1000; i++) {
+      let rand = randomMove(1);
       expect(rand).toBeGreaterThanOrEqual(0);
-      expect(rand).toBeLessThanOrEqual(100);
+      expect(rand).toBeLessThanOrEqual(1);
     }
   });
 });
