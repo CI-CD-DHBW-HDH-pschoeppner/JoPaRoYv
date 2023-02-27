@@ -120,9 +120,7 @@ export function isFull(board: Field[]): boolean {
 // returns: the player, that won, or Field.EMPTY if no one won (draw or not finished)
 export function won(board: Field[]): Field {
   for (const player of [Field.PLAYER1, Field.PLAYER2]) {
-    if (
-      hasWon(board, player)
-    )
+    if (hasWon(board, player))
       return player;
   }
   return Field.EMPTY;

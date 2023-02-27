@@ -1,4 +1,4 @@
-import { Field, Game, invertPlayer, Mode, Player } from './game';
+import { Field, Game, invertPlayer, isFull, Mode, Outcome, Player } from './game';
 import { moveWithMode } from './bots/bot';
 
 describe("invert player", () => {
@@ -95,5 +95,50 @@ describe("Game, update mode", () => {
     expect(game.mode).toBe(Mode.HUMAN);
     game.updateMode(Mode.ONLINE);
     expect(game.mode).toBe(Mode.ONLINE);
+  });
+  it("player and enemy are human, but mode is not human", () => {
+    const game = new Game();
+    game.enemy.botMove = undefined;
+    expect(game.player.isHuman()).toBe(true);
+    expect(game.enemy.isHuman()).toBe(true);
+    expect(game.mode).not.toBe(Mode.HUMAN);
+    game.updateMode(Mode.MEDIUM);
+    expect(game.enemy.botMove).not.toBe(undefined);
+    expect(game.mode).toBe(Mode.MEDIUM);
+  });
+  it("player and enemy are not human", () => {
+    const game = new Game();
+    game.player.botMove = moveWithMode(Mode.EASY);
+    expect(game.player.isHuman()).toBe(false);
+    expect(game.enemy.isHuman()).toBe(false);
+    game.updateMode(Mode.MEDIUM);
+    expect(game.mode).toBe(Mode.MEDIUM);
+    expect(game.player.botMove).not.toBe(undefined);
+    expect(game.enemy.botMove).not.toBe(undefined);
+  });
+});
+
+describe("Outcome, is draw", () => {
+  it("is draw", () => {
+    let board: Field[] = [0,0,0,0];
+    const outcome = new Outcome(board);
+    outcome.finished = true;
+    outcome.winner = Field.EMPTY;
+    expect(outcome.isDraw()).toBe(true);
+    outcome.winner = Field.PLAYER1;
+    expect(outcome.isDraw()).toBe(false);
+  });
+});
+
+describe("is full", () => {
+  it("is full", () => {
+    let board: Field[] = [1,1,2,2];
+    const outcome = new Outcome(board);
+    expect(isFull(board)).toBe(true);
+  });
+  it("is not full", () => {
+    let board: Field[] = [1,1,0,2];
+    const outcome = new Outcome(board);
+    expect(isFull(board)).toBe(false);
   });
 });
