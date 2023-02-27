@@ -10,8 +10,9 @@ export function easyMove(board: Field[], own: Field): number {
         return -1
     }
     if(winningMove(board, own) == -1){
+        let move: number
         do{
-            var move = randomMove(board.length)
+            move = randomMove(board.length)
         }while(board[move] != Field.EMPTY)
         return move
     }

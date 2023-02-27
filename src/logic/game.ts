@@ -62,7 +62,7 @@ export class Game {
     this.enemy.botMove = moveWithMode(this.mode);
   }
 
-  // score a win for the given player 
+  // score a win for the given player
   addWin(player: Field) {
     switch (player) {
       case Field.PLAYER1:
@@ -120,22 +120,21 @@ export function isFull(board: Field[]): boolean {
 // returns: the player, that won, or Field.EMPTY if no one won (draw or not finished)
 export function won(board: Field[]): Field {
   for (const player of [Field.PLAYER1, Field.PLAYER2]) {
-    if (hasWon(board, player))
-      return player;
+    if (hasWon(board, player)) return player;
   }
   return Field.EMPTY;
 }
 
 export function hasWon(board: Field[], player: Field): boolean {
   if (
-    board[0] == player && board[1] == player && board[2] == player ||
-    board[3] == player && board[4] == player && board[5] == player ||
-    board[6] == player && board[7] == player && board[8] == player ||
-    board[0] == player && board[3] == player && board[6] == player ||
-    board[1] == player && board[4] == player && board[7] == player ||
-    board[2] == player && board[5] == player && board[8] == player ||
-    board[0] == player && board[4] == player && board[8] == player ||
-    board[6] == player && board[4] == player && board[2] == player
+    (board[0] == player && board[1] == player && board[2] == player) ||
+    (board[3] == player && board[4] == player && board[5] == player) ||
+    (board[6] == player && board[7] == player && board[8] == player) ||
+    (board[0] == player && board[3] == player && board[6] == player) ||
+    (board[1] == player && board[4] == player && board[7] == player) ||
+    (board[2] == player && board[5] == player && board[8] == player) ||
+    (board[0] == player && board[4] == player && board[8] == player) ||
+    (board[6] == player && board[4] == player && board[2] == player)
   ) {
     return true;
   }
@@ -151,16 +150,18 @@ export function newBoard(): Field[] {
 
 // getBlanks returns the indices of all empty fields in a given board
 export function getBlanks(board: Field[]): number[] {
-  return board
-    // first, map all Field.EMPTY to their index, all others to -1
-    .map<number>((field, index) => {
-      if (field !== Field.EMPTY) return -1;
-      return index;
-    })
-    // than, filter out all -1 values
-    .filter((value) => {
-      return value >= 0;
-    });
+  return (
+    board
+      // first, map all Field.EMPTY to their index, all others to -1
+      .map<number>((field, index) => {
+        if (field !== Field.EMPTY) return -1;
+        return index;
+      })
+      // than, filter out all -1 values
+      .filter((value) => {
+        return value >= 0;
+      })
+  );
 }
 
 // invertPlayer returns:
