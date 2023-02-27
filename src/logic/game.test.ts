@@ -1,8 +1,8 @@
-import { hasWon } from './game';
-import { isPlayer } from './game';
+import { hasWon } from "./game";
+import { isPlayer } from "./game";
 
-describe('hasWon', () => {
-  it('should return true when the first row is all PLAYER1 symbols', () => {
+describe("hasWon", () => {
+  it("should return true when the first row is all PLAYER1 symbols", () => {
     const board: Field[] = [
       Field.PLAYER1,
       Field.PLAYER1,
@@ -16,9 +16,9 @@ describe('hasWon', () => {
     ];
     expect(hasWon(board, Field.PLAYER1)).toBe(true);
   });
-  it('should return true when the second row is all PLAYER2 symbols', () => {
+  it("should return true when the second row is all PLAYER2 symbols", () => {
     const board: Field[] = [
-      Field.EMPTY, 
+      Field.EMPTY,
       Field.EMPTY,
       Field.PLAYER1,
       Field.PLAYER2,
@@ -30,40 +30,40 @@ describe('hasWon', () => {
     ];
     expect(hasWon(board, Field.PLAYER2)).toBe(true);
   });
-  it('should return true when the third row is all PLAYER1 symbols', () => {
+  it("should return true when the third row is all PLAYER1 symbols", () => {
     const board: Field[] = [
       Field.PLAYER2,
       Field.PLAYER2,
       Field.EMPTY,
       Field.PLAYER2,
-      Field.EMPTY, 
+      Field.EMPTY,
       Field.EMPTY,
       Field.PLAYER1,
       Field.PLAYER1,
-      Field.PLAYER1
+      Field.PLAYER1,
     ];
     expect(hasWon(board, Field.PLAYER1)).toBe(true);
   });
-  it('should return false', () => {
+  it("should return false", () => {
     const board: Field[] = [
       Field.PLAYER2,
       Field.PLAYER2,
       Field.EMPTY,
       Field.PLAYER2,
-      Field.EMPTY, 
+      Field.EMPTY,
       Field.EMPTY,
       Field.PLAYER1,
       Field.EMPTY,
-      Field.PLAYER1
+      Field.PLAYER1,
     ];
     expect(hasWon(board, Field.PLAYER1)).toBe(false);
   });
-})
+});
 
-import { newBoard } from './game';
+import { newBoard } from "./game";
 
-describe('newBoard', () => {
-  it('should create a new board with all fields empty', () => {
+describe("newBoard", () => {
+  it("should create a new board with all fields empty", () => {
     const expected: Field[] = [
       Field.EMPTY,
       Field.EMPTY,
@@ -80,10 +80,10 @@ describe('newBoard', () => {
   });
 });
 
-import { getBlanks } from './game';
+import { getBlanks } from "./game";
 
-describe('getBlanks', () => {
-  it('should return an array of empty field indices', () => {
+describe("getBlanks", () => {
+  it("should return an array of empty field indices", () => {
     const board: Field[] = [
       Field.PLAYER1,
       Field.EMPTY,
@@ -98,7 +98,7 @@ describe('getBlanks', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('should return an empty array if there are no empty fields', () => {
+  it("should return an empty array if there are no empty fields", () => {
     const board: Field[] = [
       Field.PLAYER1,
       Field.PLAYER2,
@@ -114,9 +114,17 @@ describe('getBlanks', () => {
   });
 });
 
-
-import { Field, Game, invertPlayer, isFull, Mode, Outcome, Player, won } from './game';
-import { moveWithMode } from './bots/bot';
+import {
+  Field,
+  Game,
+  invertPlayer,
+  isFull,
+  Mode,
+  Outcome,
+  Player,
+  won,
+} from "./game";
+import { moveWithMode } from "./bots/bot";
 
 describe("invert player", () => {
   it("invert player1 to player2", () => {
@@ -133,14 +141,13 @@ describe("invert player", () => {
   });
 });
 
-
-describe('isPlayer', () => {
-  it('should return true for valid players', () => {
+describe("isPlayer", () => {
+  it("should return true for valid players", () => {
     expect(isPlayer(Field.PLAYER1)).toBe(true);
     expect(isPlayer(Field.PLAYER2)).toBe(true);
   });
 
-  it('should return false for invalid players', () => {
+  it("should return false for invalid players", () => {
     expect(isPlayer(Field.EMPTY)).toBe(false);
   });
 });
@@ -167,12 +174,12 @@ describe("Player, is Human", () => {
 
 describe("Player, move", () => {
   it("player is human", () => {
-    let field: Field[] = [0,0,0,0];
+    const field: Field[] = [0, 0, 0, 0];
     const player = new Player(Field.PLAYER1);
     expect(player.move(field)).toBe(-1);
   });
   it("player is bot", () => {
-    let field: Field[] = [0,0,0,0];
+    const field: Field[] = [0, 0, 0, 0];
     const player = new Player(Field.PLAYER1);
     player.botMove = moveWithMode(Mode.EASY);
     expect(player.move(field)).not.toBe(-1);
@@ -249,7 +256,7 @@ describe("Game, update mode", () => {
 
 describe("Outcome, is draw", () => {
   it("is draw", () => {
-    let board: Field[] = [0,0,0,0];
+    const board: Field[] = [0, 0, 0, 0];
     const outcome = new Outcome(board);
     outcome.finished = true;
     outcome.winner = Field.EMPTY;
@@ -261,24 +268,22 @@ describe("Outcome, is draw", () => {
 
 describe("is full", () => {
   it("is full", () => {
-    let board: Field[] = [1,1,2,2];
+    const board: Field[] = [1, 1, 2, 2];
     expect(isFull(board)).toBe(true);
   });
   it("is not full", () => {
-    let board: Field[] = [1,1,0,2];
+    const board: Field[] = [1, 1, 0, 2];
     expect(isFull(board)).toBe(false);
   });
 });
 
-
-
-describe('isPlayer', () => {
-  it('should return true for valid players', () => {
+describe("isPlayer", () => {
+  it("should return true for valid players", () => {
     expect(isPlayer(Field.PLAYER1)).toBe(true);
     expect(isPlayer(Field.PLAYER2)).toBe(true);
   });
 
-  it('should return false for invalid players', () => {
+  it("should return false for invalid players", () => {
     expect(isPlayer(Field.EMPTY)).toBe(false);
   });
 });
@@ -305,12 +310,12 @@ describe("Player, is Human", () => {
 
 describe("Player, move", () => {
   it("player is human", () => {
-    let field: Field[] = [0,0,0,0];
+    const field: Field[] = [0, 0, 0, 0];
     const player = new Player(Field.PLAYER1);
     expect(player.move(field)).toBe(-1);
   });
   it("player is bot", () => {
-    let field: Field[] = [0,0,0,0];
+    const field: Field[] = [0, 0, 0, 0];
     const player = new Player(Field.PLAYER1);
     player.botMove = moveWithMode(Mode.EASY);
     expect(player.move(field)).not.toBe(-1);
@@ -387,7 +392,7 @@ describe("Game, update mode", () => {
 
 describe("Outcome, is draw", () => {
   it("is draw", () => {
-    let board: Field[] = [0,0,0,0];
+    const board: Field[] = [0, 0, 0, 0];
     const outcome = new Outcome(board);
     outcome.finished = true;
     outcome.winner = Field.EMPTY;
@@ -399,26 +404,26 @@ describe("Outcome, is draw", () => {
 
 describe("is full", () => {
   it("is full", () => {
-    let board: Field[] = [1,1,2,2];
+    const board: Field[] = [1, 1, 2, 2];
     expect(isFull(board)).toBe(true);
   });
   it("is not full", () => {
-    let board: Field[] = [1,1,0,2];
+    const board: Field[] = [1, 1, 0, 2];
     expect(isFull(board)).toBe(false);
   });
 });
 
 describe("won", () => {
   it("player 1 won", () => {
-    let board: Field[] = [1,1,1];
+    const board: Field[] = [1, 1, 1];
     expect(won(board)).toBe(1);
   });
   it("player 1 won", () => {
-    let board: Field[] = [2,2,2];
+    const board: Field[] = [2, 2, 2];
     expect(won(board)).toBe(2);
   });
   it("no winner", () => {
-    let board: Field[] = [0,0,0];
+    const board: Field[] = [0, 0, 0];
     expect(won(board)).toBe(0);
   });
 });
