@@ -1,4 +1,4 @@
-import { Field, isPlayer, Mode } from "../game";
+import { Field, invertPlayer, isPlayer, Mode } from "../game";
 import { easyMove } from "./easy";
 import { hardMove } from "./hard";
 import { mediumMove, pettyMove } from "./medium";
@@ -31,7 +31,20 @@ export function moveWithMode(mode: Mode): BotMove | undefined {
 export function winningMove(board: Field[], player: Field): number {
   if (!isPlayer(player)) throw new Error(`Player ${player} is not valid`);
 
-  // TODO: implement
+  player = invertPlayer(player);
+
+  console.log(player, board);
+
+  // horicontally
+  for (let i = 0; i < 3; i++) {
+    let offset = i * 3;
+    const row = board.slice(offset, offset + 3);
+
+    if (row.filter((r) => r === Field.EMPTY).length !== 1) continue;
+
+    const count = row.filter((r) => r === player).length;
+    if (count == 2) return offset + row.indexOf(Field.EMPTY);
+  }
 
   return -1;
 }
