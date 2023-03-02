@@ -15,3 +15,12 @@ jobs:
         run: npm run lint
       - name: Test
         run: npm run test
+        - name: Check Status
+        run: |
+          if [ ${{ job.status }} = "failure" ]; then
+            echo "Lint or Test job failed"
+            exit 1
+          else
+            echo "Lint and Test job succeeded"
+            exit 0
+          fi
