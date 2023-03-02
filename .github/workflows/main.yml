@@ -46,7 +46,7 @@ jobs:
     # Deploy to the github-pages environment
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: 'https://ci-cd-dhbw-hdh-pschoeppner.github.io/JoPaRoYv/'
 
     # Specify runner + deployment step
     runs-on: ubuntu-latest
@@ -54,6 +54,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        outputs:
-          page_url:
-            description: 'https://ci-cd-dhbw-hdh-pschoeppner.github.io/JoPaRoYv/'
+
