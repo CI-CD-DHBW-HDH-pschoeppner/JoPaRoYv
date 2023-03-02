@@ -2,6 +2,7 @@ name: NPM Lint and Test
 on: [push]
 permissions:
   contents: write
+  packages: write
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -40,3 +41,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           folder: ./dist # The folder the action should deploy.
+
+      - name: docker-deploy
+      - run: docker build . -t svelte-docker
+      - run: docker run --rm --name=svelte-docker -p 5000:80 svelte-docker
