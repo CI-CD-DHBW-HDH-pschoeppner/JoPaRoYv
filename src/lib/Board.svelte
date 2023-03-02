@@ -7,7 +7,6 @@
     Player,
   } from "../logic/game";
   import { createEventDispatcher } from "svelte";
-  import { winningMove } from "../logic/bots/bot";
 
   export let board: Field[];
   export let fieldToString: (arg0: Field) => string;
