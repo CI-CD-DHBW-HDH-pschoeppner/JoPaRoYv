@@ -5,8 +5,10 @@ jobs:
   Lint:
     runs-on: ubuntu-latest
     steps:
+      - run: cd ..
       - run: npm run eslint .
   Run-Tests:
     runs-on: ubuntu-latest
     steps:
+      - run: cd ..
       - run: npm run jest
