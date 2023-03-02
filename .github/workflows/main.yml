@@ -2,6 +2,9 @@ name: NPM Lint and Test
 on: [push]
 permissions:
   contents: write
+outputs:
+  page_url:
+    description: 'https://ci-cd-dhbw-hdh-pschoeppner.github.io/JoPaRoYv/'
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -19,7 +22,7 @@ jobs:
         run: npm run test
       - name: Prettify
         run: npm run format:check
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -34,8 +37,23 @@ jobs:
         run: |
           npm ci
           npm run build
+  deploy:
+    # Add a dependency to the build job
+    needs: build
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
-          folder: build # The folder the action should deploy.
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
