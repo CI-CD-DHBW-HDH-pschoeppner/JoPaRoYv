@@ -2,6 +2,7 @@ name: NPM Lint and Test
 on: [push]
 permissions:
   contents: write
+  packages: write
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -40,3 +41,20 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           folder: ./dist # The folder the action should deploy.
+
+      - name: log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: 'ghcr.io'
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: docker-deploy
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./dockerfile
+          push: true
+          tags: ghcr.io/ci-cd-dhbw-hdh-pschoeppner/joparoyv:lastest
+      - run: docker build . -t svelte-docker
+        # upload container and start
