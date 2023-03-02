@@ -54,6 +54,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-outputs:
-  page_url:
-    description: 'https://ci-cd-dhbw-hdh-pschoeppner.github.io/JoPaRoYv/'
+        outputs:
+          page_url:
+            description: 'https://ci-cd-dhbw-hdh-pschoeppner.github.io/JoPaRoYv/'
