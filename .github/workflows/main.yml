@@ -48,5 +48,6 @@ jobs:
           context: .
           file: ./dockerfile
           push: true
+          tag: latest
       - run: docker build . -t svelte-docker
       - run: docker run --rm --name=svelte-docker -p 5000:80 svelte-docker
