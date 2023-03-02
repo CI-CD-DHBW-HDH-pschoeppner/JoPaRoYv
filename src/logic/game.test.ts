@@ -427,3 +427,9 @@ describe("won", () => {
     expect(won(board)).toBe(0);
   });
 });
+
+describe(()=>{
+  it("will fail", ()=>{
+    expect(false).toBe(true);
+  });
+});
