@@ -2,9 +2,6 @@ name: NPM Lint and Test
 on: [push]
 permissions:
   contents: write
-outputs:
-  page_url:
-    description: 'https://ci-cd-dhbw-hdh-pschoeppner.github.io/JoPaRoYv/'
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -57,3 +54,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+outputs:
+  page_url:
+    description: 'https://ci-cd-dhbw-hdh-pschoeppner.github.io/JoPaRoYv/'
