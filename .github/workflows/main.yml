@@ -43,11 +43,11 @@ jobs:
           folder: ./dist # The folder the action should deploy.
 
       - name: log in to container registry
-        - uses: docker/login-action@v2
-          with:
-            - registry: ${{ env.REGISTRY }}
-              username: ${{ github.actor }}
-              password: ${{ secrets.GITHUB_TOKEN }}
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: docker-deploy
         uses: docker/build-push-action@v4
