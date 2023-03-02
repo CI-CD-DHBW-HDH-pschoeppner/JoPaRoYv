@@ -1,0 +1,12 @@
+name: GitHub Main Action
+run-name: ${{ github.actor }} is setting up a pipeline :)
+on: [push]
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run eslint .
+  Run-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run jest
