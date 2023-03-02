@@ -15,3 +15,5 @@ jobs:
         run: npm run lint
       - name: Test
         run: npm run test
+      - name: Prettify
+        run: npm run format:check

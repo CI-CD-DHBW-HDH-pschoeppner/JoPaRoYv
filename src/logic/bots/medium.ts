@@ -20,7 +20,7 @@ export function mediumMove(board: Field[], own: Field): number {
   if (board[4] == Field.EMPTY) {
     return 4;
   }
-  let move:number
+  let move: number;
   do {
     move = randomMove(board.length);
   } while (board[move] != Field.EMPTY);
@@ -39,7 +39,7 @@ export function pettyMove(board: Field[], own: Field): number {
   if (winningMove(board, enemy) != -1) {
     return winningMove(board, enemy);
   } else {
-    let move: number
+    let move: number;
     do {
       move = randomMove(board.length);
     } while (board[move] != Field.EMPTY);
