@@ -1,8 +1,12 @@
-import type { Field } from "../game";
+import { Field, getBlanks } from "../game";
+import { randomMove, winningMove } from "./bot";
 
-// the easy bot:
-// - chooses the winning move, if it can win
-// - chooses a random move otherwise
 export function easyMove(board: Field[], own: Field): number {
-  return -1 // TODO: implement
+  const blanks = getBlanks(board);
+
+  // test if the bot can win
+  const win = winningMove(board, own);
+  if (win >= 0) return win;
+
+  return blanks[randomMove(blanks.length)];
 }
