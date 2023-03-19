@@ -14,12 +14,12 @@ export class Theme {
     background,
     name,
   }: {
-    primary: string,
-    secondary: string,
-    primaryAccent: string,
-    secondaryAccent: string,
-    background: string,
-    name: string,
+    primary: string;
+    secondary: string;
+    primaryAccent: string;
+    secondaryAccent: string;
+    background: string;
+    name: string;
   }) {
     this.primary = primary;
     this.secondary = secondary;
@@ -34,7 +34,6 @@ export class Theme {
   }
 }
 
-// You can change these themes or add your own
 export const themes: Theme[] = [
   new Theme({
     primary: "#1e1f26",

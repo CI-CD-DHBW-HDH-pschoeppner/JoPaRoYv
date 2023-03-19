@@ -1,17 +1,28 @@
-import type { Field } from "../game";
+import { getBlanks, invertPlayer, type Field } from "../game";
+import { randomMove, winningMove } from "./bot";
 
-// the medium bot:
-// - chooses the winning move, if it can win
-// - blocks the player from winning, if it can
-// - chooses the middle (4) field, if it can
-// - chooses a random move otherwise
 export function mediumMove(board: Field[], own: Field): number {
-  return -1 // TODO: implement
+  const blanks = getBlanks(board);
+
+  // first check, if the bot can win
+  const win = winningMove(board, own);
+  if (win >= 0) return win;
+
+  // then check, if we can block a win
+  const block = winningMove(board, invertPlayer(own));
+  if (block >= 0) return block;
+
+  if (blanks.some((field) => field === 4)) return 4;
+
+  return blanks[randomMove(blanks.length)];
 }
 
-// this bot:
-// - blocks the player from winning, if it can
-// - chooses a random move otherwise
+// this bot just tries to block a win
 export function pettyMove(board: Field[], own: Field): number {
-  return -1 // TODO: implement
+  const blanks = getBlanks(board);
+
+  const block = winningMove(board, invertPlayer(own));
+  if (block >= 0) return block;
+
+  return blanks[randomMove(blanks.length)];
 }
