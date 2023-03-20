@@ -1,6 +1,6 @@
 import { Field } from "../game";
 
-const relayServer = "ws://157.230.110.40:8080";
+const relayServer = "ws://localhost:8080";
 
 export class Offer {
   playerID = "";
