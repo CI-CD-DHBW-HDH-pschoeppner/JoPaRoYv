@@ -1,21 +1,12 @@
-import { Field } from "../game";
+import { Field, getBlanks } from "../game";
 import { randomMove, winningMove } from "./bot";
 
-// the easy bot:
-// - chooses the winning move, if it can win
-// - chooses a random move otherwise
 export function easyMove(board: Field[], own: Field): number {
-  //Testkommentar
-  const isFull = (currentValue: Field) => currentValue != Field.EMPTY;
-  if (board.every(isFull)) {
-    return -1;
-  }
-  if (winningMove(board, own) == -1) {
-    let move: number;
-    do {
-      move = randomMove(board.length);
-    } while (board[move] != Field.EMPTY);
-    return move;
-  }
-  return winningMove(board, own);
+  const blanks = getBlanks(board);
+
+  // test if the bot can win
+  const win = winningMove(board, own);
+  if (win >= 0) return win;
+
+  return blanks[randomMove(blanks.length)];
 }

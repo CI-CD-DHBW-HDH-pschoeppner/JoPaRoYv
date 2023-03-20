@@ -22,8 +22,6 @@ export function connect(
     console.log("Connection closed", e);
   };
 
-  // If you want to handle errors with the connection in a more sophisticated way,
-  // you can add a custom error handler here
   websocket.onerror = (e: Event) => {
     console.log("Connection errored", e);
   };
