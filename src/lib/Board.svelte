@@ -7,10 +7,14 @@
     Player,
   } from "../logic/game";
   import { createEventDispatcher } from "svelte";
-  import type {
+  import {
+    connect,
     MoveMessage,
     Offer,
+    sendMove,
+    sendOffer,
   } from "../logic/online/websocket";
+  import { generateID } from "../logic/online/online";
 
   export let board: Field[];
   export let fieldToString: (arg0: Field) => string;
@@ -36,7 +40,7 @@
   }
 
   function onClickHandler(index: number) {
-    if (getCurrentPlayer().isOnline()) return; // effectively disable the board, when it is not the local players move
+    if (getCurrentPlayer().isOnline()) return; // effectively disable the board, when it is not the human players move
     moveHandler(index);
   }
 
@@ -49,7 +53,7 @@
         selfID !== "" &&
         onlinePlayer.connection !== undefined
       ) {
-        // TODO: send the move, that was just made (line 48) to the connected player
+        sendMove(playerID, selfID, index, board, onlinePlayer.connection);
       } else {
         console.error(`failed to send move to player ${playerID}`);
       }
@@ -90,10 +94,8 @@
 
   $: {
     if (enemy.isOnline() && enemy.connection === undefined) {
-      // TODO: implement enemy connecting to the websocket server
-      // implement logic for enemy going online
-      // the enemy needs to connect here to the websocket server (have a look at ./src/logic/online/websocket.ts)
-      // every player connecting to the server is expected to have a unique username
+      selfID = generateID();
+      enemy.connection = connect(selfID, onlineHandler(enemy.field));
     } else if (!enemy.isOnline() && enemy.connection !== undefined) {
       enemy.connection.close();
       enemy.connection = undefined;
@@ -101,8 +103,8 @@
       playerID = "";
     }
     if (player.isOnline() && player.connection === undefined) {
-      // TODO: Implement the player connecting to the websocket server
-      // this is the same logic as above, but for the player rather than the enemy
+      selfID = generateID();
+      player.connection = connect(selfID, onlineHandler(player.field));
     } else if (!player.isOnline() && player.connection !== undefined) {
       player.connection.close();
       player.connection = undefined;
@@ -112,9 +114,11 @@
   }
 
   function join() {
-    // TODO: Implement join method
-    // if the enemy (O) is the online player, send the offer to join accordingly
-    // else, send the offer for the player
+    if (enemy.isOnline() && enemy.connection !== undefined) {
+      sendOffer(selfID, playerID, player.field, enemy.connection);
+    } else if (player.isOnline() && player.connection !== undefined) {
+      sendOffer(selfID, playerID, enemy.field, player.connection);
+    }
   }
 
   function onlineHandler(
@@ -126,18 +130,15 @@
         | MoveMessage;
       if (isOffer(data)) {
         playerID = data.ownID;
-        // if the offer proposes a different setup than expected, the receiver switches sides
-        // this decreases the complexity of the "handshake"
-        if (data.preferredSide !== player) { 
+        if (data.preferredSide !== player) {
           dispatch<"switch">("switch");
         }
       } else if (isMoveMessage(data)) {
-        // TODO: what should happen, if the online player sends its move?
+        moveHandler(data.index);
       }
     };
   }
 
-  // these are just type assertions, to parse the received message correctly
   const isOffer = (msg: any): msg is Offer => {
     if ((msg as Offer).preferredSide) return true;
     return false;
@@ -167,7 +168,7 @@
   >
     <span>{selfID}</span>
     <input type="text" bind:value={playerID} placeholder="remote player ID" />
-    <button type="button" on:click={join} disabled={playerID !== ""}
+    <button type="button" on:click={join} disabled={playerID.length !== 5}
       >connect</button
     >
   </div>
